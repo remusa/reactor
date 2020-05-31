@@ -2,7 +2,7 @@ defmodule ReactorWeb.FooLive do
   use Phoenix.LiveView
   alias ReactorWeb.PageView
 
-  def mount(_session, socket) do
+  def mount(_params, _session, socket) do
     {:ok, assign(socket, msg: "none")}
   end
 

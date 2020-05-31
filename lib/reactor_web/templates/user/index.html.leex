@@ -1,0 +1,34 @@
+<h1>Listing Users</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Is verified</th>
+      <th>Password hash</th>
+      <th>Website</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for user <- @users do %>
+    <tr>
+      <td><%= user.name %></td>
+      <td><%= user.email %></td>
+      <td><%= user.is_verified %></td>
+      <td><%= user.password_hash %></td>
+      <td><%= user.website %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.live_path(@socket, UserLive.Show, user) %></span>
+        <span><%= link "Edit", to: Routes.live_path(@socket, UserLive.Edit, user) %></span>
+        <span><%= link "Delete", to: "#", phx_click: "delete_user", phx_value_id: user.id %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New User", to: Routes.live_path(@socket, UserLive.New) %></span>

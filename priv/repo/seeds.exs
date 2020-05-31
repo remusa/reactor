@@ -9,3 +9,17 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+
+alias Reactor.Accounts
+
+Accounts.create_user(%{
+  name: "René",
+  email: "rene.as.himself@gmail.com",
+  is_verified: true,
+  website: "https://renems.com",
+})
+
+Accounts.create_user(%{
+  name: "John Doe",
+  email: "test1@test.com",
+})

@@ -1,0 +1,28 @@
+<h1>Show Comment</h1>
+
+<ul>
+
+  <li>
+    <strong>Is published:</strong>
+    <%= @comment.is_published %>
+  </li>
+
+  <li>
+    <strong>Is flagged:</strong>
+    <%= @comment.is_flagged %>
+  </li>
+
+  <li>
+    <strong>Html:</strong>
+    <%= @comment.html %>
+  </li>
+
+  <li>
+    <strong>Markdown:</strong>
+    <%= @comment.markdown %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.comment_path(@conn, :edit, @comment) %></span>
+<span><%= link "Back", to: Routes.comment_path(@conn, :index) %></span>

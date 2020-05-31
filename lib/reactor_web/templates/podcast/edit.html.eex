@@ -1,0 +1,5 @@
+<h1>Edit Podcast</h1>
+
+<%= render "form.html", Map.put(assigns, :action, Routes.podcast_path(@conn, :update, @podcast)) %>
+
+<span><%= link "Back", to: Routes.podcast_path(@conn, :index) %></span>

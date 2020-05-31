@@ -1,0 +1,33 @@
+<h1>Show Podcast</h1>
+
+<ul>
+
+  <li>
+    <strong>Audio url:</strong>
+    <%= @podcast.audio_url %>
+  </li>
+
+  <li>
+    <strong>Is published:</strong>
+    <%= @podcast.is_published %>
+  </li>
+
+  <li>
+    <strong>Notes md:</strong>
+    <%= @podcast.notes_md %>
+  </li>
+
+  <li>
+    <strong>Subtitle:</strong>
+    <%= @podcast.subtitle %>
+  </li>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @podcast.title %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.podcast_path(@conn, :edit, @podcast) %></span>
+<span><%= link "Back", to: Routes.podcast_path(@conn, :index) %></span>

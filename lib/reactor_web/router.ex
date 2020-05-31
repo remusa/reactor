@@ -17,6 +17,15 @@ defmodule ReactorWeb.Router do
   scope "/", ReactorWeb do
     pipe_through :browser
 
+    live "/users", UserLive.Index
+    live "/users/new", UserLive.New
+    live "/users/:id", UserLive.Show
+    live "/users/_id/:edit", UserLive.Edit
+
+    resources "/users", UserController
+    resources "/podcasts", PodcastController
+    resources "/comments", CommentController
+
     live "/", PageLive, :index
     live "/foo", FooLive
   end
