@@ -123,7 +123,9 @@ defmodule Reactor.Accounts do
       @topic <> "#{result.id}",
       {__MODULE__, event, result}
     )
+
+    {:ok, result}
   end
 
-  defp notify_subscribers({:error, reason}), do: {:error, reason}
+  defp notify_subscribers({:error, reason}, _), do: {:error, reason}
 end

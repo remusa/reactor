@@ -13,10 +13,10 @@
 alias Reactor.Accounts
 
 Accounts.create_user(%{
-  name: "René",
-  email: "rene.as.himself@gmail.com",
+  name: "Luke Skywalker",
+  email: "awesome@gmail.com",
   is_verified: true,
-  website: "https://renems.com",
+  website: "https://google.com",
 })
 
 Accounts.create_user(%{

@@ -20,7 +20,7 @@ defmodule ReactorWeb.Router do
     live "/users", UserLive.Index
     live "/users/new", UserLive.New
     live "/users/:id", UserLive.Show
-    live "/users/_id/:edit", UserLive.Edit
+    live "/users/:id/edit", UserLive.Edit
 
     resources "/users", UserController
     resources "/podcasts", PodcastController
