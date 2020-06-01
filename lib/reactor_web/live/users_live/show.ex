@@ -7,7 +7,7 @@ defmodule ReactorWeb.UserLive.Show do
 
   def render(assigns), do: UserView.render("show.html", assigns)
 
-  def mount(_session, socket), do: {:ok, socket}
+  def mount(_params, _session, socket), do: {:ok, socket}
 
   def handle_params(%{"id" => id}, _url, socket) do
     if connected?(socket), do: Accounts.subscribe(id)
@@ -23,9 +23,9 @@ defmodule ReactorWeb.UserLive.Show do
   end
 
   def handle_info({Accounts, [:user, :deleted], _}, socket) do
-    {:stop,
+    {:noreply,
      socket
      # |> put_flash(:error, "This user has been deleted.")
-     |> redirect(to: Routes.live_path(socket, UserLive.Index))}
+     |> push_redirect(to: Routes.live_path(socket, UserLive.Index))}
   end
 end

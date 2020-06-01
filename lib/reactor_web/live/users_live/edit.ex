@@ -8,7 +8,7 @@ defmodule ReactorWeb.UserLive.Edit do
   alias Phoenix.LiveView.Socket
 
   def render(assigns), do: UserView.render("edit.html", assigns)
-  def mount(_session, socket), do: {:ok, socket}
+  def mount(_params, _session, socket), do: {:ok, socket}
 
   def handle_params(%{"id" => id}, _url, socket) do
     if connected?(socket), do: Accounts.subscribe(id)
@@ -32,10 +32,10 @@ defmodule ReactorWeb.UserLive.Edit do
   def handle_event("save", %{"user" => params}, socket) do
     case Accounts.update_user(socket.assigns.user, params) do
       {:ok, user} ->
-        {:stop,
+        {:noreply,
          socket
          #  |> put_flash(:info, "user updated")
-         |> redirect(to: Routes.live_path(socket, UserLive.Show, user))}
+         |> push_redirect(to: Routes.live_path(socket, UserLive.Show, user))}
 
       {:error, %Ecto.Changeset{} = cset} ->
         {:noreply, assign(socket, changeset: cset)}
@@ -47,9 +47,9 @@ defmodule ReactorWeb.UserLive.Edit do
   end
 
   def handle_info({Accounts, [:user, :deleted], _}, socket) do
-    {:stop,
+    {:noreply,
      socket
      # |> put_flash(:error, "This user has been deleted.")
-     |> redirect(to: Routes.live_path(socket, UserLive.Index))}
+     |> push_redirect(to: Routes.live_path(socket, UserLive.Index))}
   end
 end

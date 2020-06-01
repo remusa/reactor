@@ -8,7 +8,14 @@ defmodule ReactorWeb.FooLive do
 
   def render(assigns), do: PageView.render("foo.html", assigns)
 
-  def handle_event("keydown", %{"key" => key}, socket) do
-    {:noreply, assign(socket, msg: key )}
+  def handle_event("foo_key", %{"key" => key} = stuff, socket) do
+    IO.inspect(stuff)
+    {:noreply, assign(socket, msg: key)}
+  end
+
+  def handle_event(event, stuff, socket) do
+    IO.puts("Event: #{event}")
+    IO.inspect(stuff)
+    {:noreply, socket}
   end
 end

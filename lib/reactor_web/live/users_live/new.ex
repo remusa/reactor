@@ -24,10 +24,10 @@ defmodule ReactorWeb.UserLive.New do
   def handle_event("save", %{"user" => params}, socket) do
     case Accounts.create_user(params) do
       {:ok, user} ->
-        {:stop,
+        {:noreply,
          socket
          # |>put_flash(:info, "User created")
-         |> redirect(to: Routes.live_path(socket, UserLive.Show, user))}
+         |> push_redirect(to: Routes.live_path(socket, UserLive.Show, user))}
 
       {:error, %Ecto.Changeset{} = cset} ->
         {:noreply, assign(socket, changeset: cset)}

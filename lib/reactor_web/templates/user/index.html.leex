@@ -22,13 +22,13 @@
       <td><%= user.website %></td>
 
       <td>
-        <span><%= link "Show", to: Routes.live_path(@socket, ReactorWeb.UserLive.Show, user) %></span>
-        <span><%= link "Edit", to: Routes.live_path(@socket, ReactorWeb.UserLive.Edit, user) %></span>
-        <span><%= link "Delete", to: "#", phx_click: "delete_user", phx_value_id: user.id %></span>
+        <span><%= live_redirect "Show", to: Routes.live_path(@socket, ReactorWeb.UserLive.Show, user) %></span>
+        <span><%= live_redirect "Edit", to: Routes.live_path(@socket, ReactorWeb.UserLive.Edit, user) %></span>
+        <span><%= live_redirect "Delete", to: "#", phx_click: "delete_user", phx_value_id: user.id %></span>
       </td>
     </tr>
 <% end %>
   </tbody>
 </table>
 
-<span><%= link "New User", to: Routes.live_path(@socket, ReactorWeb.UserLive.New) %></span>
+<span><%= live_redirect "New User", to: Routes.live_path(@socket, ReactorWeb.UserLive.New) %></span>
