@@ -5,25 +5,29 @@
     </div>
   <% end %>
 
-  <%= label f, :audio_url %>
-  <%= text_input f, :audio_url %>
-  <%= error_tag f, :audio_url %>
-
-  <%= label f, :is_published %>
-  <%= checkbox f, :is_published %>
-  <%= error_tag f, :is_published %>
-
-  <%= label f, :notes_md %>
-  <%= textarea f, :notes_md %>
-  <%= error_tag f, :notes_md %>
+  <%= label f, :title %>
+  <%= text_input f, :title %>
+  <%= error_tag f, :title %>
 
   <%= label f, :subtitle %>
   <%= text_input f, :subtitle %>
   <%= error_tag f, :subtitle %>
 
-  <%= label f, :title %>
-  <%= text_input f, :title %>
-  <%= error_tag f, :title %>
+  <%= label f, :audio_url %>
+  <%= text_input f, :audio_url %>
+  <%= error_tag f, :audio_url %>
+
+  <%= label f, :notes_md %>
+  <%= textarea f, :notes_md, rows: 10 %>
+  <%= error_tag f, :notes_md %>
+
+  <%# <%= label f, :notes_html %>
+  <%# <%= textarea f, :notes_html, rows: 10 %>
+  <%# <%= error_tag f, :notes_html %>
+
+  <%= label f, :is_published %>
+  <%= checkbox f, :is_published %>
+  <%= error_tag f, :is_published %>
 
   <div>
     <%= submit "Save" %>

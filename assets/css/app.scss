@@ -1,6 +1,74 @@
 /* This file is for your main application css. */
-@import "./phoenix.css";
-@import "../node_modules/nprogress/nprogress.css";
+@import './phoenix.css';
+@import '../node_modules/nprogress/nprogress.css';
+
+$near-black: #333;
+$reactive-green: #99d205;
+$sand-color: #c99305;
+$olive: #bfa005;
+$near-white: #eee;
+$burnt-orange: #ff4d05;
+$burnt-brown: #e24003;
+$link-green: #8ab305;
+
+@font-face {
+  font-family: 'Inter';
+  src: local('Inter'), url('../fonts/Inter-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  background: $near-white;
+  color: $burnt-brown;
+  font-family: 'Inter', sans-serif;
+}
+
+a {
+  color: $link-green;
+}
+
+header {
+  background-color: black;
+
+  .main-title {
+    color: white;
+    font-size: 10rem;
+  }
+}
+
+textarea {
+  height: auto;
+  line-height: 1.5;
+}
+
+.logo {
+  min-width: 100px;
+  width: 150px;
+  margin: 1rem;
+  display: block;
+
+  & > img {
+    width: auto;
+    display: block;
+  }
+}
+
+.podcast-title {
+  margin-bottom: 0;
+}
+
+.subtitle {
+  color: gray;
+}
+
+@media (min-width: 40rem) {
+  /* Small devices (landscape phones, 576px and up) */
+  .logo {
+    flex-basis: 150px;
+    margin: 2rem 1rem;
+  }
+}
 
 /* LiveView specific classes for your customizations */
 .invalid-feedback {
@@ -9,7 +77,8 @@
   margin: -1rem 0 2rem;
 }
 
-.phx-no-feedback.invalid-feedback, .phx-no-feedback .invalid-feedback {
+.phx-no-feedback.invalid-feedback,
+.phx-no-feedback .invalid-feedback {
   display: none;
 }
 
@@ -18,15 +87,15 @@
   transition: opacity 1s ease-out;
 }
 
-.phx-disconnected{
+.phx-disconnected {
   cursor: wait;
 }
-.phx-disconnected *{
+.phx-disconnected * {
   pointer-events: none;
 }
 
 .phx-modal {
-  opacity: 1!important;
+  opacity: 1 !important;
   position: fixed;
   z-index: 1;
   left: 0;
@@ -34,8 +103,8 @@
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 .phx-modal-content {
@@ -59,7 +128,6 @@
   text-decoration: none;
   cursor: pointer;
 }
-
 
 /* Alerts and form errors */
 .alert {
@@ -88,4 +156,134 @@
 }
 .alert:empty {
   display: none;
+}
+
+// From phoenix.css
+.button,
+button,
+input[type='button'],
+input[type='reset'],
+input[type='submit'] {
+  background-color: $link-green;
+  border: 0.1rem solid $link-green;
+  border-radius: 0.4rem;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 1.1rem;
+  font-weight: 700;
+  height: 3.8rem;
+  letter-spacing: 0.1rem;
+  line-height: 3.8rem;
+  padding: 0 3rem;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.button:focus,
+.button:hover,
+button:focus,
+button:hover,
+input[type='button']:focus,
+input[type='button']:hover,
+input[type='reset']:focus,
+input[type='reset']:hover,
+input[type='submit']:focus,
+input[type='submit']:hover {
+  background-color: #606c76;
+  border-color: #4d5155;
+  color: #fff;
+  outline: 0;
+}
+.button[disabled],
+button[disabled],
+input[type='button'][disabled],
+input[type='reset'][disabled],
+input[type='submit'][disabled] {
+  cursor: default;
+  opacity: 0.5;
+}
+.button[disabled]:focus,
+.button[disabled]:hover,
+button[disabled]:focus,
+button[disabled]:hover,
+input[type='button'][disabled]:focus,
+input[type='button'][disabled]:hover,
+input[type='reset'][disabled]:focus,
+input[type='reset'][disabled]:hover,
+input[type='submit'][disabled]:focus,
+input[type='submit'][disabled]:hover {
+  background-color: $link-green;
+  border-color: $link-green;
+}
+.button.button-outline,
+button.button-outline,
+input[type='button'].button-outline,
+input[type='reset'].button-outline,
+input[type='submit'].button-outline {
+  background-color: transparent;
+  color: $link-green;
+}
+.button.button-outline:focus,
+.button.button-outline:hover,
+button.button-outline:focus,
+button.button-outline:hover,
+input[type='button'].button-outline:focus,
+input[type='button'].button-outline:hover,
+input[type='reset'].button-outline:focus,
+input[type='reset'].button-outline:hover,
+input[type='submit'].button-outline:focus,
+input[type='submit'].button-outline:hover {
+  background-color: transparent;
+  border-color: #606c76;
+  color: #606c76;
+}
+.button.button-outline[disabled]:focus,
+.button.button-outline[disabled]:hover,
+button.button-outline[disabled]:focus,
+button.button-outline[disabled]:hover,
+input[type='button'].button-outline[disabled]:focus,
+input[type='button'].button-outline[disabled]:hover,
+input[type='reset'].button-outline[disabled]:focus,
+input[type='reset'].button-outline[disabled]:hover,
+input[type='submit'].button-outline[disabled]:focus,
+input[type='submit'].button-outline[disabled]:hover {
+  border-color: inherit;
+  color: $link-green;
+}
+.button.button-clear,
+button.button-clear,
+input[type='button'].button-clear,
+input[type='reset'].button-clear,
+input[type='submit'].button-clear {
+  background-color: transparent;
+  border-color: transparent;
+  color: $link-green;
+}
+.button.button-clear:focus,
+.button.button-clear:hover,
+button.button-clear:focus,
+button.button-clear:hover,
+input[type='button'].button-clear:focus,
+input[type='button'].button-clear:hover,
+input[type='reset'].button-clear:focus,
+input[type='reset'].button-clear:hover,
+input[type='submit'].button-clear:focus,
+input[type='submit'].button-clear:hover {
+  background-color: transparent;
+  border-color: transparent;
+  color: #606c76;
+}
+.button.button-clear[disabled]:focus,
+.button.button-clear[disabled]:hover,
+button.button-clear[disabled]:focus,
+button.button-clear[disabled]:hover,
+input[type='button'].button-clear[disabled]:focus,
+input[type='button'].button-clear[disabled]:hover,
+input[type='reset'].button-clear[disabled]:focus,
+input[type='reset'].button-clear[disabled]:hover,
+input[type='submit'].button-clear[disabled]:focus,
+input[type='submit'].button-clear[disabled]:hover {
+  color: $link-green;
 }

@@ -1,33 +1,28 @@
-<h1>Show Podcast</h1>
+<div class="podcast-show">
 
-<ul>
+  <h1 class="podcast-title"><%= @podcast.title %></h1>
 
-  <li>
-    <strong>Audio url:</strong>
-    <%= @podcast.audio_url %>
-  </li>
+  <div class="subtitle"><%= @podcast.subtitle %></div>
 
-  <li>
-    <strong>Is published:</strong>
-    <%= @podcast.is_published %>
-  </li>
+  <iframe src="<%= @podcast.audio_url %>?theme=minimal"
+    seamless height="60"
+    style="border: 0; margin: 0 auto 2rem;"
+    class="pinecast-embed"
+    frameborder="0"
+    width="100%">
+  </iframe>
 
-  <li>
-    <strong>Notes md:</strong>
-    <%= @podcast.notes_md %>
-  </li>
+  <h2>Show Notes:</h2>
+  <%= raw @podcast.notes_md %>
 
-  <li>
-    <strong>Subtitle:</strong>
-    <%= @podcast.subtitle %>
-  </li>
+  <ul>
+    <li>
+      <strong>Is published:</strong>
+      <%= @podcast.is_published %>
+    </li>
+  </ul>
 
-  <li>
-    <strong>Title:</strong>
-    <%= @podcast.title %>
-  </li>
+  <span><%= link "Edit", to: Routes.podcast_path(@conn, :edit, @podcast) %></span>
+  <span><%= link "Back", to: Routes.podcast_path(@conn, :index) %></span>
 
-</ul>
-
-<span><%= link "Edit", to: Routes.podcast_path(@conn, :edit, @podcast) %></span>
-<span><%= link "Back", to: Routes.podcast_path(@conn, :index) %></span>
+</div>
