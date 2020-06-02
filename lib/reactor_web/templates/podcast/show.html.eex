@@ -13,7 +13,8 @@
   </iframe>
 
   <h2>Show Notes:</h2>
-  <%= raw @podcast.notes_md %>
+  <%=# raw @podcast.notes_html %>
+  <%= raw AlchemistMarkdown.to_html(@podcast.notes_md) %>
 
   <ul>
     <li>
