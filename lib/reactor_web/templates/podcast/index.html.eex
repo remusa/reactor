@@ -3,29 +3,22 @@
 <table>
   <thead>
     <tr>
-      <th>Audio url</th>
-      <th>Is published</th>
-      <th>Notes md</th>
-      <th>Subtitle</th>
       <th>Title</th>
-
-      <th></th>
+      <th>Audio url</th>
+      <th>Notes md</th>
     </tr>
   </thead>
   <tbody>
 <%= for podcast <- @podcasts do %>
     <tr>
-      <td><%= podcast.audio_url %></td>
-      <td><%= podcast.is_published %></td>
-      <td><%= podcast.notes_md %></td>
-      <td><%= podcast.subtitle %></td>
-      <td><%= podcast.title %></td>
-
       <td>
-        <span><%= link "Show", to: Routes.podcast_path(@conn, :show, podcast) %></span>
-        <span><%= link "Edit", to: Routes.podcast_path(@conn, :edit, podcast) %></span>
-        <span><%= link "Delete", to: Routes.podcast_path(@conn, :delete, podcast), method: :delete, data: [confirm: "Are you sure?"] %></span>
+        <div><%= podcast.title %></div>
+        <span class="subtitle"><%= podcast.subtitle %></span>
       </td>
+      <td><%= link "▶", to: podcast.audio_url, class: "play" %></td>
+      <td><%= link String.slice(podcast.notes_md, 0, 140) <> "...",
+      to: Routes.podcast_path(@conn, :show, podcast),
+      class: "notes-preview" %></td>
     </tr>
 <% end %>
   </tbody>

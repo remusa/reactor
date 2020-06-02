@@ -17,17 +17,17 @@ defmodule ReactorWeb.Router do
   scope "/", ReactorWeb do
     pipe_through :browser
 
-    live "/users", UserLive.Index
-    live "/users/new", UserLive.New
-    live "/users/:id", UserLive.Show
-    live "/users/:id/edit", UserLive.Edit
+    live "/users", UserLive.Index, layout: {ReactorWeb.LayoutView, :root}
+    live "/users/new", UserLive.New, layout: {ReactorWeb.LayoutView, :root}
+    live "/users/:id", UserLive.Show, layout: {ReactorWeb.LayoutView, :root}
+    live "/users/:id/edit", UserLive.Edit, layout: {ReactorWeb.LayoutView, :root}
 
     resources "/users", UserController
     resources "/podcasts", PodcastController
     resources "/comments", CommentController
 
     live "/", PageLive, :index
-    live "/foo", FooLive
+    live "/foo", FooLive, layout: {ReactorWeb.LayoutView, :root}
   end
 
   # Other scopes may use custom stacks.

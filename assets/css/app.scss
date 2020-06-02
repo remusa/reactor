@@ -66,6 +66,18 @@ textarea {
   color: gray;
 }
 
+.notes-preview {
+  color: $burnt-brown;
+}
+
+.play {
+  display: inline-block;
+  background: $near-black;
+  padding: 5px 5px;
+  border-radius: 5px;
+  margin: 0 auto;
+}
+
 @media (min-width: 40rem) {
   /* Small devices (landscape phones, 576px and up) */
   .logo {
