@@ -23,6 +23,8 @@ defmodule ReactorWeb do
 
       import Plug.Conn
       import ReactorWeb.Gettext
+      import ReactorWeb.Auth, only: [logged_in_user: 2, authenticate_admin: 2]
+      import Phoenix.LiveView.Controller
       alias ReactorWeb.Router.Helpers, as: Routes
     end
   end
@@ -39,6 +41,8 @@ defmodule ReactorWeb do
 
       # Include shared imports and aliases for views
       unquote(view_helpers())
+
+      alias ReactorWeb.UserLive
     end
   end
 

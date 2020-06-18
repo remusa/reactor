@@ -24,10 +24,13 @@ defmodule ReactorWeb.UserLive.New do
   def handle_event("save", %{"user" => params}, socket) do
     case Accounts.create_user(params) do
       {:ok, user} ->
+        token = Accounts.User.generate_login_token()
+        {:ok, user} = Accounts.update_login_token(user, token)
+
         {:noreply,
          socket
-         # |>put_flash(:info, "User created")
-         |> push_redirect(to: Routes.live_path(socket, UserLive.Show, user))}
+         |> put_flash(:info, "User created")
+         |> push_redirect(to: Routes.session_path(socket, :create_from_token, token, user.email))}
 
       {:error, %Ecto.Changeset{} = cset} ->
         {:noreply, assign(socket, changeset: cset)}

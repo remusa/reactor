@@ -4,9 +4,11 @@
   <thead>
     <tr>
       <th>Name</th>
+      <% if @admin_user do %>
       <th>Email</th>
       <th>Is verified</th>
       <th>Password hash</th>
+      <% end%>
       <th>Website</th>
 
       <th></th>
@@ -16,15 +18,19 @@
 <%= for user <- @users do %>
     <tr>
       <td><%= user.name %></td>
+      <% if @admin_user do %>
       <td><%= user.email %></td>
       <td><%= user.is_verified %></td>
       <td><%= user.password_hash %></td>
+      <% end%>
       <td><%= user.website %></td>
 
       <td>
         <span><%= live_redirect "Show", to: Routes.live_path(@socket, ReactorWeb.UserLive.Show, user) %></span>
+        <% if @admin_user do %>
         <span><%= live_redirect "Edit", to: Routes.live_path(@socket, ReactorWeb.UserLive.Edit, user) %></span>
         <span><%= live_redirect "Delete", to: "#", phx_click: "delete_user", phx_value_id: user.id %></span>
+        <% end%>
       </td>
     </tr>
 <% end %>

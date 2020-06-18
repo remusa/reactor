@@ -22,6 +22,19 @@ defmodule ReactorWeb.Router do
     live "/users/:id", UserLive.Show, layout: {ReactorWeb.LayoutView, :root}
     live "/users/:id/edit", UserLive.Edit, layout: {ReactorWeb.LayoutView, :root}
 
+    get("/forgot", SessionController, :forgot)
+    get("/login", SessionController, :new)
+    get("/login/:token/email/:email", SessionController, :create_from_email)
+    get("/logout", SessionController, :delete)
+    get("/forgot", SessionController, :reset_pass)
+
+    resources(
+      "/sessions",
+      SessionController,
+      only: [:new, :create, :delete],
+      singleton: true
+    )
+
     resources "/users", UserController
     resources "/podcasts", PodcastController
     resources "/comments", CommentController

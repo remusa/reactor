@@ -8,6 +8,8 @@ defmodule Reactor.Accounts do
 
   alias Reactor.Accounts.User
 
+  import Comeonin.Argon2, only: [checkpw: 2, dummy_checkpw: 0]
+
   @topic inspect(__MODULE__)
 
   def subscribe do
@@ -128,4 +130,52 @@ defmodule Reactor.Accounts do
   end
 
   defp notify_subscribers({:error, reason}, _), do: {:error, reason}
+
+  def authenticate_by_email_password(email, given_pass) do
+    user = get_user_by_email(email)
+
+    cond do
+      email in Reactor.Accounts.Email.banned() ->
+        dummy_checkpw()
+        {:error, :unauthorized}
+
+      user && checkpw(given_pass, user.password_hash) ->
+        {:ok, user}
+
+      user ->
+        {:error, :unauthorized}
+
+      true ->
+        dummy_checkpw()
+        {:error, :not_found}
+    end
+  end
+
+  def authenticate_by_email_token(email, token) do
+    user = get_user_by_email(email)
+
+    cond do
+      email in Reactor.Accounts.Email.banned() ->
+        dummy_checkpw()
+        {:error, :unauthorized}
+
+      user && user.login_token && checkpw(token, user.login_token) ->
+        update_login_token(user, nil)
+        {:ok, user}
+
+      true ->
+        dummy_checkpw()
+        {:error, :unauthorized}
+    end
+  end
+
+  def get_user_by_email(email) do
+    Repo.get_by(User, email: email)
+  end
+
+  def update_login_token(%User{} = user, token) do
+    user
+    |> User.token_changeset(%{login_token: token})
+    |> Repo.update()
+  end
 end

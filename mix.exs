@@ -48,7 +48,9 @@ defmodule Reactor.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:earmark, "~> 1.4"},
-      {:html_sanitize_ex, "~> 1.3"}
+      {:html_sanitize_ex, "~> 1.3"},
+      {:comeonin, "~> 4.0"},
+      {:argon2_elixir, "~> 1.2"}
     ]
   end
 

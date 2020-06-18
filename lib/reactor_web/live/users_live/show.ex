@@ -7,7 +7,18 @@ defmodule ReactorWeb.UserLive.Show do
 
   def render(assigns), do: UserView.render("show.html", assigns)
 
-  def mount(_params, _session, socket), do: {:ok, socket}
+  def mount(_params, %{"user_id" => user_id}, socket) do
+    current_user = Accounts.get_user!(user_id)
+    admin_user = ReactorWeb.Auth.is_admin?(current_user)
+
+    {:ok,
+     socket
+     |> assign(current_user: current_user, admin_user: admin_user)}
+  end
+
+  def mount(_params, _session, socket) do
+    {:ok, socket |> assign(current_user: nil, admin_user: nil)}
+  end
 
   def handle_params(%{"id" => id}, _url, socket) do
     if connected?(socket), do: Accounts.subscribe(id)

@@ -14,6 +14,14 @@
   <%= text_input f, :email, phx_debounce: "blur" %>
   <%= error_tag f, :email %>
 
+  <%= label f, :password %>
+  <%= password_input f, :password, value: input_value(f, :password) %>
+  <%= error_tag f, :password %>
+
+  <%= label f, :password_confirmation %>
+  <%= password_input f, :password_confirmation, value: input_value(f, :password) %>
+  <%= error_tag f, :password_confirmation %>
+
   <%= label f, :website %>
   <%= text_input f, :website, phx_debounce: "blur" %>
   <%= error_tag f, :website %>

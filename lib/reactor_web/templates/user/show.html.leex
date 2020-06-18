@@ -12,21 +12,22 @@
     <%= @user.email %>
   </li>
 
-  <li>
-    <strong>Is verified:</strong>
-    <%= @user.is_verified %>
-  </li>
-
-  <li>
-    <strong>Password hash:</strong>
-    <%= @user.password_hash %>
-  </li>
-
-  <li>
+   <li>
     <strong>Website:</strong>
     <%= @user.website %>
   </li>
 
+  <% if @admin_user do %>
+    <li>
+      <strong>Is verified:</strong>
+      <%= @user.is_verified %>
+    </li>
+
+    <li>
+      <strong>Password hash:</strong>
+      <%= @user.password_hash %>
+    </li>
+  <% end%>
 </ul>
 
 <span><%= live_redirect "Edit", to: Routes.live_path(@socket, UserLive.Edit, @user) %></span>
