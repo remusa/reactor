@@ -16,14 +16,18 @@
   <%=# raw @podcast.notes_html %>
   <%= raw AlchemistMarkdown.to_html(@podcast.notes_md) %>
 
-  <ul>
-    <li>
-      <strong>Is published:</strong>
-      <%= @podcast.is_published %>
-    </li>
-  </ul>
+  <%= if @admin_user do %>
+    <ul>
+      <li>
+        <strong>Is published:</strong>
+        <%= @podcast.is_published %>
+      </li>
+    </ul>
+  <% end %>
 
   <span><%= link "Edit", to: Routes.podcast_path(@conn, :edit, @podcast) %></span>
   <span><%= link "Back", to: Routes.podcast_path(@conn, :index) %></span>
+  
+  <%= render "comments.html", assigns %>
 
 </div>

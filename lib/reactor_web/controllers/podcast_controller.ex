@@ -28,7 +28,8 @@ defmodule ReactorWeb.PodcastController do
 
   def show(conn, %{"id" => id}) do
     podcast = Content.get_podcast!(id)
-    render(conn, "show.html", podcast: podcast)
+    changeset = Content.change_comment(%Content.Comment{})
+    render(conn, "show.html", podcast: podcast, changeset: changeset)
   end
 
   def edit(conn, %{"id" => id}) do
