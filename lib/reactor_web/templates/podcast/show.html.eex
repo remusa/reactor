@@ -25,9 +25,14 @@
     </ul>
   <% end %>
 
-  <span><%= link "Edit", to: Routes.podcast_path(@conn, :edit, @podcast) %></span>
-  <span><%= link "Back", to: Routes.podcast_path(@conn, :index) %></span>
-  
-  <%= render "comments.html", assigns %>
+  <span><%= link "Edit", to: Routes.podcast_path(@socket, :edit, @podcast) %></span>
+  <span><%= link "Back", to: Routes.podcast_path(@socket, :index) %></span>
+
+  <%= render "comments.html",
+    Map.merge(assigns, %{
+      changeset: @changeset,
+      current_url: Routes.podcast_path(@socket, :show, @podcast)
+    })
+  %>
 
 </div>

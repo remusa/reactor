@@ -3,27 +3,42 @@
 <div class="comments">
 	<h3>Comments</h3>
 
-	<a name="comments" class="utility"></a>
+	<a name="comments" class="utility">
+		<%= @podcast.comments
+				|> length
+				|> comment_count_str %>
+	</a>
 
-	<%= render "add_comment.html", assigns %>
+	<%= if @current_user do %>
+		<%= render "add_comment.html",
+				podcast: @podcast,
+				conn: @socket,
+				changeset: @changeset,
+				current_user: @current_user,
+				redirect_url: "#comment-new"
+		%>
+
+		<% else %>
+			<div class="login"><%= link "Log in", to: "/login" %> to leave a comment</div>
+	<% end %>
 
 	<%= for comment <- @podcast.comments do %>
-		<%= name = "comment-#{comment.id}" %>
-		<a name="<% name %>" class="utility"></a>
+		<% url = "#{@current_user}#comment-#{comment.id}" %>
+		<a class="utility" name="comment-<% comment.id %>" >
+			<div class="comment">
+				<div class="comment-text">
+					<%= raw(comment.html) %>
+				</div>
 
-		<div class="comment">
-			<div class="comment-text">
-				<%= comment.html |> HtmlSanitizeEx.html5 |> raw %>
+				<div class="meta">
+					<span class="author">- <em><%= comment.author.name %></em></span>
+					<span class="time-ago"><%= Timex.from_now(comment.updated_at) %></span>
+
+					<%= if comment.author_id == cuid, do:
+							link "edit", to: Routes.comment_path(@socket, :edit, comment, redirect_url: url) %>
+					<% end %>
+				</div>
 			</div>
-
-			<div class="meta">
-				<span class="author"><%= comment.author.name %></span>
-				<span class="time-ago"><%= Timex.from_now(comment.updated_at) %></span>
-			</div>
-
-			<%= if comment.author_id == cuid, do: link "edit", to: Routes.comment_path(@conn, :edit, comment) %>
-
-			<% end %>
-		</div>
+		</a>
 	<% end %>
 </div>
