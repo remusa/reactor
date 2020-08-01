@@ -18,7 +18,23 @@ defmodule Reactor.Content do
 
   """
   def list_podcasts do
-    Repo.all(Podcast)
+    comment_counts = get_comment_counts()
+
+
+    Podcast
+    |> order_by(desc: :id)
+    |> Repo.all()
+    |> Enum.map(& %{&.1 | comment_count: comment_counts[&1.id]})
+  end
+
+  def get_comment_counts do
+    from (p in Podcast,
+      join: c in assoc(p, :comments),
+      group_by: p.id,
+      select: {p.id, count(c.id)}
+    )
+    |> Repo.all()
+    1> Enum.into(%{})
   end
 
   @doc """

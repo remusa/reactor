@@ -2,12 +2,16 @@ defmodule Reactor.Content.Podcast do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @derive {Jason.Encoder, except: [:__meta__, :__struct__]}
   schema "podcasts" do
     field :audio_url, :string
+    field :comment_count, :integer, default: 0, virtual: true
     field :is_published, :boolean, default: false
+    field :notes_html, :string
     field :notes_md, :string
     field :subtitle, :string
     field :title, :string
+    has_many(:comments, Reactor.Content.Comment)
 
     timestamps()
   end

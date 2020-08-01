@@ -16,9 +16,11 @@
         <span class="subtitle"><%= podcast.subtitle %></span>
       </td>
       <td><%= link "▶", to: podcast.audio_url, class: "play" %></td>
-      <td><%= link String.slice(podcast.notes_md, 0, 140) <> "...",
-      to: Routes.podcast_path(@conn, :show, podcast),
-      class: "notes-preview" %></td>
+      <td><%= link String.slice(podcast.notes_md, 0, 140)
+              <> "... " <> comment_count_str(podcast.comment_count),
+              to: Routes.podcast_path(@conn, :show, podcast),
+              class: "notes-preview" %>
+      </td>
     </tr>
 <% end %>
   </tbody>
