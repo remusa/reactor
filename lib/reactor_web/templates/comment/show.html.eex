@@ -27,4 +27,4 @@
 <%= if @current_user.id == @comment.author_id do %>
   <span><%= link "Edit", to: @redirect_url || Routes.comment_path(@conn, :edit, @comment) %></span>
 <% end %>
-<span><%= link "Back", to: @redirect_url || Routes.comment_path(@conn, :index) %></span>
+<span><%= link "Back", to: @redirect_url || comment_url(@conn, :index) %></span>
