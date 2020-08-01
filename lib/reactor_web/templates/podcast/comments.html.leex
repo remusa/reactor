@@ -35,7 +35,7 @@
 					<span class="time-ago"><%= Timex.from_now(comment.updated_at) %></span>
 
 					<%= if comment.author_id == cuid, do:
-							link "edit", to: Routes.comment_path(@socket, :edit, comment, redirect_url: url) %>
+							link "edit", to: Routes.comment_path(@socket, :edit, comment) %>
 					<% end %>
 				</div>
 			</div>

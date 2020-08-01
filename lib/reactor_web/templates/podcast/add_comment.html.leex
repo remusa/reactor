@@ -1,0 +1,16 @@
+<%= f = form_for @changeset, "#",
+  [phx_change: :validate, phx_submit: :save, phx_hook: "SavedForm"] %>
+
+  <%= textarea f, :markdown, default: "Enter your comment here... (markdown syntax)" %>
+  <%= error_tag f, :markdown %>
+
+  <%= hidden_input f, :podcast_id, value: @podcast.id %>
+  <%= error_tag f, :podcast_id %>
+
+  <%= hidden_input f, :user_id, value: @current_user.id %>
+  <%= error_tag f, :user_id %>
+
+  <div>
+    <%= submit "Save", phx_disable_with: "Saving..." %>
+  </div>
+<% end %>

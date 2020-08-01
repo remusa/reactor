@@ -7,6 +7,18 @@ defmodule Reactor.Content do
   alias Reactor.Repo
 
   alias Reactor.Content.Podcast
+  alias Reactor.Content.Comment
+
+  @podcast inspect(__MODULE__)
+  @comment inspect(Comment)
+
+  def subscribe(podcast \\ @podcast) do
+    Phoenix.PubSub.subscribe(Reactor.PubSub, podcast)
+  end
+
+  def subscribe_one(id, podcast \\ @podcast) do
+    Phoenix.PubSub.subscribe(Reactor.PubSub, podcast <> "#{id}")
+  end
 
   @doc """
   Returns the list of podcasts.
@@ -19,7 +31,6 @@ defmodule Reactor.Content do
   """
   def list_podcasts do
     comment_counts = get_comment_counts()
-
 
     Podcast
     |> order_by(desc: :id)
@@ -69,6 +80,7 @@ defmodule Reactor.Content do
     %Podcast{}
     |> Podcast.changeset(attrs)
     |> Repo.insert()
+    |> notify_subscribers([:podcast, :created])
   end
 
   @doc """
@@ -87,6 +99,7 @@ defmodule Reactor.Content do
     podcast
     |> Podcast.changeset(attrs)
     |> Repo.update()
+    |> notify_subscribers([:podcast, :updated])
   end
 
   @doc """
@@ -103,6 +116,7 @@ defmodule Reactor.Content do
   """
   def delete_podcast(%Podcast{} = podcast) do
     Repo.delete(podcast)
+    |> notify_subscribers([:user, :deleted], "")
   end
 
   @doc """
@@ -165,6 +179,7 @@ defmodule Reactor.Content do
     %Comment{}
     |> Comment.changeset(attrs)
     |> Repo.insert()
+    |> notify_subscribers([:comment, :created], @comment)
   end
 
   @doc """
@@ -183,6 +198,7 @@ defmodule Reactor.Content do
     comment
     |> Comment.changeset(attrs)
     |> Repo.update()
+    |> notify_subscribers([:comment, :updated], @comment)
   end
 
   @doc """
@@ -199,6 +215,7 @@ defmodule Reactor.Content do
   """
   def delete_comment(%Comment{} = comment) do
     Repo.delete(comment)
+    |> notify_subscribers([:comment, :deleted], @comment)
   end
 
   @doc """
@@ -405,4 +422,24 @@ defmodule Reactor.Content do
   def change_podcast_topic(%PodcastTopic{} = podcast_topic, attrs \\ %{}) do
     PodcastTopic.changeset(podcast_topic, attrs)
   end
+
+  defp notify_subscribers(%PodcastTopic{} = podcast_topic) do
+    PodcastTopic.changeset(podcast_topic, %{})
+  end
+
+  defp notify_subscribers(_a, _b, topic \\ @podcast)
+
+  def change_podcast_topic({:ok, result}, _, _) do
+    Phoenix.PubSub.broadcast(Reactor.PubSub, topic, {__MODULE__, event, result})
+
+    Phoenix.PubSub.broadcast(
+      Reactor.PubSub,
+      topic <> "#{result.id}",
+      {__MODULE__, event, result}
+    )
+
+    {:ok, result}
+  end
+
+  defp notify_subscribers({:error, reason}, _, _), do: {:error, reason}
 end

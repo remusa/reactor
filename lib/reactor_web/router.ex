@@ -17,6 +17,9 @@ defmodule ReactorWeb.Router do
   scope "/", ReactorWeb do
     pipe_through :browser
 
+    get "/podcasts/new", PodcastController, :new
+
+    live "/podcasts/:id", PodcastLive.Show
     live "/users", UserLive.Index, layout: {ReactorWeb.LayoutView, :root}
     live "/users/new", UserLive.New, layout: {ReactorWeb.LayoutView, :root}
     live "/users/:id", UserLive.Show, layout: {ReactorWeb.LayoutView, :root}
